@@ -56,5 +56,29 @@ app.post("/Cheese", async (req, res) => {
     }
 })
 
+app.put("/cheese/:id", async (req, res) => {
+    try {
+        res.json(await Cheese.findByIdAndUpdate(req.params.id, req.body, {new: true}))
+    } catch(error){
+        res.status(400).json(error);
+    }
+});
+
+app.delete("/cheese/:id", async (req, res) => {
+    try {
+        res.json(await Cheese.findByIdAndRemove(req.params.id))
+    } catch(error) {
+        res.status(400).json(error);
+    }
+});
+
+app.get("/cheese/:id", async (req, res) => {
+    try {
+        res.json(await Cheese.findById(req.params.id));
+    } catch(error) {
+        res.status(400).json(error);
+    }
+})
+
 
 app.listen(PORT, () => console.log(`You are now listening on port ${PORT}`));
